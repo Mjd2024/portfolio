@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import me from "../assets/123.webp";
+import me from "../assets/me.webp";
 ---
 
 <section class="hero">
@@ -14,7 +14,7 @@ import me from "../assets/123.webp";
         </div>
     </div>
     <div class="hero-image">
-        <Image src={me} alt="Ich, einfach unverbesserlich."/>
+        <Image src={me} alt="Ich, einfach unverbesserlich." id={"me-image"}/>
     </div>
 </section>
     
@@ -23,7 +23,7 @@ import me from "../assets/123.webp";
         margin-bottom: 4rem;
         display: flex;
         flex-direction: row;
-        height: 100vh;
+        height: 90vh;
     }
 
     section.hero > div.hero-text {
@@ -36,11 +36,10 @@ import me from "../assets/123.webp";
     .hero-text p {
         max-width: 45ch;
     }
-    
-    .hero-image > img {
+    .hero-image > #me-image {
         object-fit: cover;
-        height: auto;
+        height: 100%;
         overflow-x: hidden;
-        width:100%;
+        width: 100%;
     }
 </style>
