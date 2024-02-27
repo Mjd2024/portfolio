@@ -1,0 +1,125 @@
+---
+interface Props {}
+
+const langs = [
+  {
+    lang: "ger",
+    label: "Deutsch"
+  },
+  {
+    lang: "eng",
+    label: "Englisch"
+  },
+  {
+    lang: "cze",
+    label: "Czech"
+  },
+  {
+    lang: "ben",
+    label: "Bengali"
+  },
+  {
+    lang: "esp",
+    label: "Spanish"
+  },
+  {
+    lang: "rus",
+    label: "Russian"
+  },
+  {
+    lang: "por",
+    label: "Portuguese"
+  },
+  {
+    lang: "fil",
+    label: "Filipino"
+  },
+  {
+    lang: "ukr",
+    label: "Ukrainian"
+  },
+  {
+    lang: "urd",
+    label: "Urdu"
+  },
+  {
+    lang: "ita",
+    label: "Italian"
+  },
+  {
+    lang: "zho",
+    label: "Chinese"
+  },
+  {
+    lang: "kor",
+    label: "Korean"
+  },
+]
+---
+
+<div class="fact-box">
+  <div class="outer-box">
+    <select data-select-lang name="lang" id="lang">
+      {
+        langs.map((entry) => <option value={entry.lang} label={entry.label}/>)
+      }
+    </select>
+    <div class="inner-box">
+      <p data-fact class="fact">
+        ...
+      </p>
+    </div>
+  </div>
+  <button data-submit-fact>Get a random fact about cats</button>
+</div>
+
+<script defer>
+  const submitFactBtnElem = document.querySelector('[data-submit-fact]');
+  const factTextElem = document.querySelector('[data-fact]');
+  const selectLangElem = document.querySelector('[data-select-lang]');
+
+  submitFactBtnElem.addEventListener("click", () => {
+    const baseUrl = "https://meowfacts.herokuapp.com/?lang=";
+    // append lang
+    const url = baseUrl + selectLangElem.value
+    fetch(url)
+      .then(httpResponse => {
+        return httpResponse.json();
+      })
+      .then(jsonData => {
+        factTextElem.innerHTML = jsonData.data[0];
+      });
+  });
+</script>
+
+<style>
+  .fact-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .fact-box > button {
+    align-self: stretch;
+    font-size: 1.5em;
+    padding: 1rem 0;
+    background-color: rgba(255, 255, 0, .9);
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 0 0 1rem 1rem;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.493);
+  }
+  .outer-box {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: rgba(82, 82, 86, 0.5);
+    border-radius: 1rem 1rem 0 0;
+  }
+  .outer-box > select {
+    align-self: start;
+  }
+  .inner-box {
+    padding: 1.5rem;
+    margin: 1rem 0;
+    background-color: rgba(220, 220, 220, 0.5);
+    border-radius: 0.5rem;
+  }
+</style>
